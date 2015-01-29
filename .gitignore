@@ -1,2 +1,5 @@
+.DS_Store*
+.hubot_history
 .vagrant/
 hubot_slack_token
+node_modules

@@ -1,0 +1,2 @@
+setuid vagrant
+env HOME="/home/vagrant"

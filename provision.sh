@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Variables passed from Vagrantfile
+environment=$1
+run_as_user=$2
+
 # Install system dependencies.
 curl -sL https://deb.nodesource.com/setup | sudo bash -
 sudo apt-get install -y nodejs git-core build-essential
@@ -11,25 +15,26 @@ npm install -g coffee-script
 npm install -g yo
 npm install -g generator-hubot
 
-# Scaffold a hubot project
-HUBOT_PROJ_NAME=myhubot
-if [ ! -d /vagrant/$HUBOT_PROJ_NAME ]; then
-  mkdir -p /vagrant/$HUBOT_PROJ_NAME
-  cd /vagrant/$HUBOT_PROJ_NAME
+# If necessary, scaffold a hubot project
+hubot_proj_name=myhubot
+if [ ! -d /vagrant/$hubot_proj_name ]; then
+  mkdir -p /vagrant/$hubot_proj_name
+  cd /vagrant/$hubot_proj_name
   yo hubot \
-    --owner="tobinquadros@gmail.com" \
-    --name="$HUBOT_PROJ_NAME" \
+    --owner="user@example.com" \
+    --name="$hubot_proj_name" \
     --description="Description goes here." \
     --adapter="slack" \
     --defaults
   npm install hubot-slack --save
 fi
 
-# Add upstart configuration.
+# Add upstart configuration, with override for dev and prod.
 cp /vagrant/upstart/myhubot.conf /etc/init/myhubot.conf
+cp /vagrant/upstart/myhubot.${environment}.override /etc/init/myhubot.override
 
 # Install any new packages.
-sudo -u vagrant -i sh -c "cd /vagrant/myhubot; npm install"
+sudo -u ${run_as_user} -i sh -c "cd /vagrant/myhubot; npm install"
 
 # Ensure hubot is running.
 sudo service myhubot restart

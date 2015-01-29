@@ -1,0 +1,2 @@
+setuid ubuntu
+env HOME="/home/ubuntu"
