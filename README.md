@@ -27,7 +27,7 @@ repository. To learn more see the [Slack Help
 Center](https://slack.zendesk.com/hc/en-us).
 
 ```sh
-cd project_root_dir
+cd hubot-tester
 echo "slack-token-goes-here" > hubot_slack_token
 ```
 
@@ -47,8 +47,8 @@ export SECRET_ACCESS_KEY="secret-access-key-goes-here"
 ## Updating or reconfiguring Hubot
 
 If you choose to start fresh or update the [myhubot](myhubot) directory, you
-will need to reconfigure your hubot to ignore Heroku and a few other tweaks
-such as the [myhubot/package.json](myhubot/package.json),
+will need to reconfigure myhubot to ignore Heroku, and possibly make a few
+other tweaks to the [myhubot/package.json](myhubot/package.json),
 [myhubot/external-scripts.json](myhubot/external-scripts.json), and
 [myhubot/bin/hubot](myhubot/bin/hubot). Please see the official
 [Hubot](https://github.com/github/hubot/blob/master/docs/README.md) or
