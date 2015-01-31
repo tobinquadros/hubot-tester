@@ -24,12 +24,14 @@ Vagrant.configure(2) do |config|
 
     # AWS
     prod.vm.provider "aws" do |aws, override|
+      # Instance
       aws.tags = { "Name" => "Hubot-instance" }
+      aws.security_groups = [ "hubot" ]
+      aws.iam_instance_profile_name = "Hubot"
 
-      # Auth.
+      # Auth
       aws.access_key_id = ENV['ACCESS_KEY_ID']
       aws.secret_access_key = ENV['SECRET_ACCESS_KEY']
-      aws.security_groups = [ "hubot" ]
       aws.keypair_name = "hubot"
       override.ssh.private_key_path = "~/.ssh/hubot.pem"
       override.ssh.username = "ubuntu"
